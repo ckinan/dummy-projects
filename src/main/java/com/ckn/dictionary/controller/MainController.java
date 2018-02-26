@@ -1,23 +1,47 @@
 package com.ckn.dictionary.controller;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import javax.validation.Valid;
+import java.util.List;
+
+import com.ckn.dictionary.model.Record;
+import com.ckn.dictionary.model.RecordRepository;
+import com.sun.prism.impl.Disposer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 @Controller
-@EnableAutoConfiguration
+@RequestMapping("/")
 public class MainController {
 
-    @RequestMapping("/")
-    @ResponseBody
-    String home() {
-        return "Hello World!";
+    private RecordRepository repository;
+
+    @Autowired
+    public MainController(RecordRepository repository) {
+        this.repository = repository;
     }
 
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(MainController.class, args);
+    @RequestMapping(method = RequestMethod.GET)
+    public String home(ModelMap model) {
+        List<Record> records = repository.findAll();
+        model.addAttribute("records", records);
+        model.addAttribute("insertRecord", new Record());
+        return "home";
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public String insertData(ModelMap model,
+                             @ModelAttribute("insertRecord") @Valid Record record,
+                             BindingResult result) {
+        if (!result.hasErrors()) {
+            repository.save(record);
+        }
+        return home(model);
+    }
 }
