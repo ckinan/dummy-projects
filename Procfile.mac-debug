@@ -1,0 +1,1 @@
+web: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -Dserver.port=$PORT $JAVA_OPTS -jar target/ckn-dictionary-1.0-SNAPSHOT.jar
