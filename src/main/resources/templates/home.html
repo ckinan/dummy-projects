@@ -26,25 +26,26 @@
                     <label for="key">Key</label>
                     <input id="key" type="password" class="form-control" placeholder="Enter a key here" th:field="*{key}"/>
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default">Search</button>
                 <!-- <p th:text="${wordDefinition}">Test</p> -->
             </form>
         </div>
     </div>
 
     <hr />
-    <div th:if="${responseBody != null}">
+    <div th:if="${definitions != null}">
         <div class="row">
             <div class="col-sm-12">
+                <p class="lead" th:text="${'Results for word: ' + word}">Unknown</p>
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th width="30%">Part of speech</th>
-                        <th width="70%">Definition</th>
+                        <th width="20%">Part of speech</th>
+                        <th width="80%">Definition</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="definition : ${responseBody.definitions}">
+                    <tr th:each="definition : ${definitions}">
                         <td th:text="${definition.partOfSpeech}">Unknown</td>
                         <td th:text="${definition.definition}">Unknown</td>
                     </tr>
@@ -53,33 +54,33 @@
             </div>
         </div>
     </div>
-    <div th:if="${responseBody == null and message == null}">
+    <div th:if="${definitions == null and message == null}">
         <p>Enter key and a word to see results</p>
     </div>
     <div th:if="${message != null}">
         <p th:text="${message}">Unknown</p>
     </div>
 
-
-    <!--
     <hr />
     <div class="row">
         <div class="col-sm-12">
+            <p class="lead">History</p>
             <table class="table table-striped">
                 <thead>
-                    <tr>
-                        <th>Records</th>
-                    </tr>
+                <tr>
+                    <th width="50%">Word</th>
+                    <th width="50%">Created date</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="record : ${records}">
-                        <td th:text="${record.data}">Some text</td>
-                    </tr>
+                <tr th:each="word : ${history}">
+                    <td th:text="${word.word}">Unknown</td>
+                    <td th:text="${word.createdDate}">Unknown</td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    -->
 </div>
 
 <!-- Latest compiled and minified JavaScript -->

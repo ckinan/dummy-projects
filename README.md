@@ -10,8 +10,8 @@ Tasks:
   - Spring boot, jpa (thanks to this demo project: https://github.com/britter/spring-boot-heroku-demo) .. DONE
   - Dictionary API Integration (https://www.wordsapi.com) .. DONE
 - Search words .. DONE
-- Save search words
-- Show search words history
+- Save search words .. DONE
+- Show search words history .. DONE
 - Delete row in history list
 - Login interface (just adding a "key" to execute operations for now) .. DONE
 - Documentation
