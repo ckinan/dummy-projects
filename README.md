@@ -19,3 +19,4 @@ Tasks:
 - Documentation
   - Database
   - Application
+.
